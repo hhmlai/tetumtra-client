@@ -43,14 +43,12 @@ body {
 </head>
 <body>
     <div class="content" style="width: 760px;">
-	    <h1 text-align:center; background-color: #FCFCFC;>Tradutor Português / Tétum</h1>
-        <hr>v0.1
-        <br>
+	    <h1 text-align:center; background-color: #FCFCFC;>Tradutor Português / Tétum   (V1)</h1>
         <form method="POST">
         <label>Língua</label>
         <select id="lang" name="lang">
-            <option value="pt-tt">Português-Tétum</option>
-            <option value="tt-pt" {% if language == "tt-pt"%} selected {% endif %}>Tétum-Português</option>
+            <option value="pttt">Português-Tétum</option>
+            <option value="ttpt" {% if pair == "ttpt"%} selected {% endif %}>Tétum-Português</option>
         </select>
             {{ form.hidden_tag() }}
             <div>

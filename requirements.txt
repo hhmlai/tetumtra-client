@@ -1,8 +1,6 @@
-uwsgi
+gunicorn
 flask
-pyonmttok
-ctranslate2
 flask_pagedown
 flask_wtf
 wtforms
-
+requests
