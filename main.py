@@ -17,6 +17,7 @@ class TranslateForm(FlaskForm):
     pagedown = PageDownField('Escreva o texto a traduzir')
     submit = SubmitField('Traduzir')
 
+
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = TranslateForm()
@@ -26,11 +27,10 @@ def index():
         text = form.pagedown.data
         text_list = text.splitlines()
         translation = ''
+        pair = request.form['lang']
         for text in text_list:
-            print(text)
             if len(text) > 0:
                 res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model_type + '/'+ pair, 'text': text})
-                print(res)
                 if res.ok:
                     translation = translation + res.json()['translation'] + '\n'
                 else:
