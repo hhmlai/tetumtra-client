@@ -24,13 +24,17 @@ def index():
     pair = "pttt" #Default
     if form.validate_on_submit():
         text = form.pagedown.data
-        pair = str(request.form.get('lang'))
-        res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model_type + '/'+ pair, 'text': text})
-        if res.ok:
-            print(res.json())
-            translation = res.json()['translation']
-        else:
-            print(res)
+        text_list = text.splitlines()
+        translation = ''
+        for text in text_list:
+            print(text)
+            if len(text) > 0:
+                res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model_type + '/'+ pair, 'text': text})
+                print(res)
+                if res.ok:
+                    translation = translation + res.json()['translation'] + '\n'
+                else:
+                    print(res)
     else:
         form.pagedown.data = ('Teste aqui o tradutor')
     return render_template('index.html', form=form, pair=pair, text=translation)
