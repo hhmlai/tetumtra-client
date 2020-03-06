@@ -12,7 +12,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 pagedown = PageDown(app)
 model_type = 'ct2_int16'
-pair = 'ttpt'
 
 class TranslateForm(FlaskForm):
     pagedown = PageDownField('Escreva o texto a traduzir')
@@ -22,24 +21,22 @@ class TranslateForm(FlaskForm):
 def index():
     form = TranslateForm()
     translation = ''
-    language = "pttt" #Default
+    pair = "pttt" #Default
     if form.validate_on_submit():
-        text = form.pagedown.data[0:500]
-        form.pagedown.data = text
+        text = form.pagedown.data
         pair = str(request.form.get('lang'))
-        res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model_type + '/'+ pair, 'text': [text]})
+        res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model_type + '/'+ pair, 'text': text})
         if res.ok:
             print(res.json())
-            translation = res.json()['translation'][0]
+            translation = res.json()['translation']
         else:
             print(res)
     else:
-        form.pagedown.data = ('Teste aqui o tradutor.')
-    return render_template('index.html', form=form, language=language, text=translation)
+        form.pagedown.data = ('Teste aqui o tradutor')
+    return render_template('index.html', form=form, pair=pair, text=translation)
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
     # Engine, a webserver process such as Gunicorn will serve the app. This
     # can be configured by adding an `entrypoint` to app.yaml.
     app.run(host='localhost', port=8080, debug=True)
-# [END gae_python37_app]
