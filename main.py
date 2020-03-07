@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'secret!'
 pagedown = PageDown(app)
-model_type = 'ct2_int16'
+model = 'sp_int16'
 
 class TranslateForm(FlaskForm):
     pagedown = PageDownField('Escreva o texto a traduzir')
@@ -30,9 +30,9 @@ def index():
         pair = request.form['lang']
         for text in text_list:
             if len(text) > 0:
-                res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model_type + '/'+ pair, 'text': text})
+                res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model, 'pair': pair, 'text': text})
                 if res.ok:
-                    translation = translation + res.json()['translation'] + '\n'
+                    translation = translation + res.text + '\n'
                 else:
                     print(res)
     else:
