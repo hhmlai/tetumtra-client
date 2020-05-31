@@ -1,9 +1,14 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, flash
 from flask_wtf import FlaskForm
 from flask_pagedown import PageDown
 from flask_pagedown.fields import PageDownField
 from wtforms.fields import SubmitField
+import nltk
+import re
+from more_itertools import intersperse
 import requests
+
+nltk.download('punkt')
 
 # If `entrypoint` is not defined in app.yaml, App Engine will look for an app
 # called `app` in `main.py`.
@@ -17,6 +22,7 @@ class TranslateForm(FlaskForm):
     pagedown = PageDownField('Escreva o texto a traduzir')
     submit = SubmitField('Traduzir')
 
+translation = ''
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -25,8 +31,17 @@ def index():
     pair = "pttt" #Default
     if form.validate_on_submit():
         text = form.pagedown.data
-        text_list = text.splitlines()
-        translation = ''
+        text_list =  re.split('(\n)', text)
+        print(text_list)
+        tok_list = []
+        for p in text_list:
+            if len(p)>1:
+                tok_list.append(list(intersperse(' ', nltk.sent_tokenize(p))))
+            else: 
+                tok_list.append(p)
+        print(tok_list)
+        text_list = [sent for par in tok_list for sent in par ]
+        print(text_list)
         pair = request.form['lang']
         for text in text_list:
             if len(text) > 0:
@@ -35,6 +50,8 @@ def index():
                     translation = translation + res.json()['translation'] + '\n'
                 else:
                     print(res)
+            else:
+                translation = translation + text
     else:
         form.pagedown.data = ('Teste aqui o tradutor')
     return render_template('index.html', form=form, pair=pair, text=translation)

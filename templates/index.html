@@ -1,4 +1,5 @@
 <html>
+
 <head>
   {{ pagedown.include_pagedown() }}
   <style>
@@ -28,7 +29,7 @@
       font-size: 100%;
       cursor: pointer;
     }
-
+    
   </style>
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-VJXBETXMLJ"></script>
@@ -47,7 +48,7 @@
       <div style="float: right; ">
         <select id="lang" name="lang" style="font-size: 130%;">
           <option value="pttt">Português-Tétum</option>
-          <option value="ttpt"{% if pair == "ttpt"%} selected {% endif %} >Tétum-Português</option>
+          <option value="ttpt" {% if pair == "ttpt"%} selected {% endif %}>Tétum-Português</option>
         </select>
       </div>
       {{ form.hidden_tag() }}
@@ -58,12 +59,14 @@
       <br>
     </form>
     {% if text %}
-    <hr>
+      <hr>
       <div style="font-size:130%; white-space: pre-wrap;">{{ text }}</div>
     {% endif %}
     <hr>
     <br>
-    <small style="text-align: center;">Uma experiência com 'Deep Learning' em Timor-Leste, mas ainda muito por fazer!</small><br>
+    <small style="text-align: center;">Uma experiência com 'Deep Learning' em Timor-Leste, mas ainda muito por
+      fazer!</small><br>Versão melhorada...
   </div>
 </body>
+
 </html>
