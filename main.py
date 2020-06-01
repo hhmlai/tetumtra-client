@@ -53,7 +53,7 @@ def index():
                 else:
                     translation = translation + text
     else:
-        form.pagedown.data = ('Uma experiência com aprendizagem automátia em tétum, mas ainda muito por fazer!')
+        form.pagedown.data = ('Uma experiência com aprendizagem automática em tétum, mas ainda muito por fazer!')
     return render_template('index.html', form=form, pair=pair, text=translation)
 
 if __name__ == '__main__':
