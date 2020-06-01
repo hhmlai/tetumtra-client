@@ -32,22 +32,19 @@ def index():
     if form.validate_on_submit():
         text = form.pagedown.data
         text_list =  re.split('(\n)', text)
-        print(text_list)
         tok_list = []
         for p in text_list:
             if len(p)>1:
                 tok_list.append(list(intersperse(' ', nltk.sent_tokenize(p))))
             else: 
                 tok_list.append(p)
-        print(tok_list)
         text_list = [sent for par in tok_list for sent in par ]
-        print(text_list)
         pair = request.form['lang']
         for text in text_list:
-            if len(text) > 0:
+            if len(text) > 1:
                 res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model, 'pair': pair, 'text': text})
                 if res.ok:
-                    translation = translation + res.json()['translation'] + '\n'
+                    translation = translation + res.json()['translation']
                 else:
                     print(res)
             else:
