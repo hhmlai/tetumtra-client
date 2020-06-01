@@ -37,7 +37,7 @@
 
     #footer {
       position: relative;
-      top: 50px;
+      top: 20px;
       bottom: 0;
       width: 100%;
       height: 2.5rem;
@@ -57,34 +57,35 @@
 
 <body>
   <div class="content">
-    <h1 style="text-align: center;font-size: 100%;">Tradutor de/para Tétum</h1>
+    <h1 style="font-size: 100%;">Tradutor de/para Tétum</h1>
     <form method="POST">
       <div style="float: right; ">
-        <select id="lang" name="lang" style="font-size: 80%;">
+        <select id="lang" name="lang" style="font-size: 110%;">
           <option value="pttt">Português-Tétum</option>
           <option value="ttpt" {% if pair == "ttpt"%} selected {% endif %}>Tétum-Português</option>
         </select>
       </div>
       {{ form.hidden_tag() }}
-      <div style="float: left;font-size: 80%;">{{ form.submit(class="button") }}</div>
+      <div style="float: left;font-size: 110%;">{{ form.submit(class="button") }}</div>
       <div>
         <div>{{ form.pagedown(only_input=True, rows=4, style='width:100%; font-size:100%') }}</div>
       </div>
+      <div style="font-size:50%;">V1.1</div>
     </form>
     {% if text %}
-    <div style="font-size:50%; white-space: pre-wrap;">Tradução:</div>
+    <div style="font-size:70%;">Tradução:</div>
     <hr>
     <div style="font-size:100%; white-space: pre-wrap;">{{ text }}</div>
     <hr>
-    {% endif %}
-    <br>
-    <div style="text-align: left; font-size: 60%;">
+    {% else %}
+    <div style="font-size: 70%;">
       Uma experiência com 'Machine Learning' em Timor-Leste, mas ainda muito por
-      fazer!<br>Versão revista e melhorada... (v1.1)
+      fazer!<br><br>
     </div>
+    {% endif %}
     <footer id='footer'>
       <div style="text-align: right;font-size: 50%;">
-        Sugestões para melhoria: <a href='mailto:tetumtra@gmail.com'>tetumtra@gmail.com</a>
+        Sugestões de melhoria: <a href='mailto:tetumtra@gmail.com'>tetumtra@gmail.com</a>
       </div>
     </footer>
   </div>
