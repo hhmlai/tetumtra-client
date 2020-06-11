@@ -1,5 +1,4 @@
 <html>
-
 <head>
   {{ pagedown.include_pagedown() }}
   <style>
@@ -16,6 +15,7 @@
     }
 
     .content {
+      font-family: arial, sans-serif;
       max-width: 800px;
       margin: auto;
     }
@@ -57,7 +57,7 @@
 
 <body>
   <div class="content">
-    <h1 style="font-size: 100%;">Tradutor de/para Tétum</h1>
+    <h1 style="font-size: 100%;">Tradutor automático de e para Tétum</h1>
     <form method="POST">
       <div style="float: right; ">
         <select id="lang" name="lang" style="font-size: 110%;">
@@ -68,9 +68,9 @@
       {{ form.hidden_tag() }}
       <div style="float: left;font-size: 110%;">{{ form.submit(class="button") }}</div>
       <div>
-        <div>{{ form.pagedown(only_input=True, rows=4, style='width:100%; font-size:100%') }}</div>
+        <div>{{ form.pagedown(only_input=True, rows=6, style='width:100%; font-size:100%') }}</div>
       </div>
-      <div style="font-size:50%;">V1.1</div>
+      <div style="font-size:50%;">V1.1.0</div>
     </form>
     {% if text %}
     <div style="font-size:70%;">Tradução / Tradusaun:</div>
@@ -85,5 +85,4 @@
     </footer>
   </div>
 </body>
-
 </html>
