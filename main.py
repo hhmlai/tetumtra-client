@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, flash
+from flask import Flask, render_template, request, jsonify, flash, current_app
 from flask_wtf import FlaskForm
 from flask_pagedown import PageDown
 from flask_pagedown.fields import PageDownField
@@ -19,22 +19,65 @@ pagedown = PageDown(app)
 model = 'sp_int16_en'
 
 class TranslateForm(FlaskForm):
-    pagedown = PageDownField('Escreva o texto a traduzir')
-    submit = SubmitField('Traduzir')
+    pagedown = PageDownField()
+    submit_pt = SubmitField('Traduzir texto')
+    submit_tt = SubmitField('Tradús testu')
+    submit_en = SubmitField('Translate text')
 
 translation = ''
 
-@app.route('/index.html')
-@app.route('/')
-def index():
+@app.route('/tradutor-portugues-tetum.html', methods=['GET', 'POST'])
+@app.route('/index.html', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
+def pttt():
+    translation = ""
     form = TranslateForm()
-    translation = ''
     pair = "pttt" #Default
     if form.validate_on_submit():
+        text = form.pagedown.data   
+        translation = translate(text,pair)
+    else:
+        form.pagedown.data = ("Escreva aqui o texto que quer traduzir.\n\nTradutor gratuito, agora e para sempre!")
+    return render_template('tradutor-portugues-tetum.html', form=form, pair=pair, text=translation)
+
+@app.route('/tradutor-tetun-portuges.html', methods=['GET', 'POST'])
+def ttpt():
+    translation = ""
+    form = TranslateForm()
+    pair = "ttpt" #Default
+    if form.validate_on_submit():
+        translation = ""
         text = form.pagedown.data
+        translation = translate(text,pair)
+    else:
+        form.pagedown.data = ("Hakerek iha ne'e testu ne'ebé hakarak tradús.\n\nTradutór gratuitu, agora no ba nafatin!")
+    return render_template('tradutor-tetun-portuges.html', form=form, pair=pair, text=translation)
+
+@app.route('/translator-tetum-portuguese.html', methods=['GET', 'POST'])
+def ttpt_en():
+    translation = ""
+    form = TranslateForm()
+    pair = "ttpt" #Default
+    if form.validate_on_submit():
+        translation = ""
+        text = form.pagedown.data
+        translation = translate(text,pair)
+    else:
+        form.pagedown.data = ("Hakerek iha ne'e testu ne'ebé hakarak tradús.\n\nTradutór gratuitu, agora no ba nafatin!")
+    return render_template('translator-tetum-portuguese.html', form=form, pair=pair, text=translation)
+
+
+
+@app.route('/sitemap.xml')
+def sitemap():
+#    console.log('cheguei')
+    return current_app.send_static_file('sitemap.xml')
+
+def translate(text,pair):
         if len(text) > 1000:
-            translation="Texto demasiado longo, por favor reduza para traduzir.\n\nTestu naruk tebes! Favor ida bele reduz hodi tradús."
+            translation = "Texto demasiado longo, por favor reduza para traduzir.\n\nTestu naruk tebes! Favor ida bele reduz hodi tradús."
         else:
+            translation = ''
             text_list =  re.split('(\n)', text)
             tok_list = []
             for p in text_list:
@@ -53,9 +96,7 @@ def index():
                         print(res)
                 else:
                     translation = translation + text
-    else:
-        form.pagedown.data = ('Uma experiência com aprendizagem automática de tétum, mas ainda muito por fazer!')
-    return render_template('index.html', form=form, pair=pair, text=translation)
+        return translation
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

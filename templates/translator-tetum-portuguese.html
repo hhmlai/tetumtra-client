@@ -1,4 +1,5 @@
 <html>
+
 <head>
   {{ pagedown.include_pagedown() }}
   <style>
@@ -53,40 +54,43 @@
     gtag('config', 'G-VJXBETXMLJ');
   </script>
   <meta name="google-site-verification" content="ZMqNX7Nt4G5nTZOTYHqjhWojk4AYIkjTMJMQrxAnSJM" />
-  <title>Tetumtra - Tradutor automático Tétum-Português-Tétum</title>
+  <title>Tetumtra - Automatic translator from tetum to portuguese</title>
   <meta name="description" content="Tradutor automático de português para tétum e de tétum para português" />
-  <meta name="description" content="Tradutór automátiku portugés ba tétun no tétun ba portugés" />
   <meta name="description" content="Automatic translator from tetum to portuguese and portuguese to tetum" />
 </head>
+
 <body>
   <div class="content">
-    <h1 style="font-size: 100%;text-align: center;">Tradutor automático de Tétum</h1>
+    <button style="float: left" onclick="window.location.href = 'tradutor-tetun-portuges.html';">Iha Tetun</button>
+    <button style="float: left" onclick="window.location.href = 'tradutor-portugues-tetum.html';">Em Português</button>
+    <br>
+    <h1 style="font-size: 100%;text-align: center;">Automatic translator from Tetum to Portuguese</h1>
     <br>
     <form method="POST">
       <div style="float: right; ">
         <select id="lang" name="lang" style="font-size: 110%;">
-          <option value="pttt">Português-Tétum</option>
-          <option value="ttpt" {% if pair == "ttpt"%} selected {% endif %}>Tétum-Português</option>
+          <option value="pttt">Portuguese-Tetum</option>
+          <option value="ttpt" {% if pair == "ttpt"%} selected {% endif %}>Tetum-Portuguese</option>
         </select>
       </div>
       {{ form.hidden_tag() }}
-      <div style="float: left;font-size: 110%;">{{ form.submit(class="button") }}</div>
+      <div style="float: left;font-size: 110%;">{{ form.submit_en(class="button") }}</div>
       <div>
         <div>{{ form.pagedown(only_input=True, rows=6, style='width:100%; font-size:100%') }}</div>
       </div>
-      <div style="font-size:50%;">V1.1.0</div>
+      <div style="font-size:50%;float: left;">V1.1.1</div>
+      <div style="float: right; right;font-size: 50%;">
+        Translator in development. Send suggestions for improvement to: <a
+          href='mailto:tetumtra@gmail.com'>tetumtra@gmail.com</a>
+      </div>
     </form>
     {% if text %}
-    <div style="font-size:70%;">Tradução / Tradusaun:</div>
+    <div style="font-size:70%;">Translation:</div>
     <hr>
     <div style="font-size:120%; white-space: pre-wrap;">{{ text }}</div>
     <hr>
     {% endif %}
-    <footer id='footer'>
-      <div style="text-align: right;font-size: 50%;">
-        Sugestões de melhoria: <a href='mailto:tetumtra@gmail.com'>tetumtra@gmail.com</a>
-      </div>
-    </footer>
   </div>
 </body>
+
 </html>

@@ -1,0 +1,97 @@
+<html>
+
+<head>
+  {{ pagedown.include_pagedown() }}
+  <style>
+    .flask-pagedown-preview {
+      border: 1px dotted black;
+      background-color: #f0f0f0;
+    }
+
+    body {
+      font-size: 150%;
+      border-radius: 5px;
+      background-color: #FDFDFD;
+      padding: 20px;
+    }
+
+    .content {
+      font-family: arial, sans-serif;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .textarea {
+      width: 100%;
+      padding: 12px 12px;
+      box-sizing: border-box;
+      border: 2px solid #ccc;
+      border-radius: 4px;
+      resize: vertical;
+    }
+
+    .button {
+      font-size: 100%;
+      cursor: pointer;
+    }
+
+
+    #footer {
+      position: relative;
+      top: 20px;
+      bottom: 0;
+      width: 100%;
+      height: 2.5rem;
+      /* Footer height */
+    }
+  </style>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VJXBETXMLJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-VJXBETXMLJ');
+  </script>
+  <meta name="google-site-verification" content="ZMqNX7Nt4G5nTZOTYHqjhWojk4AYIkjTMJMQrxAnSJM" />
+  <title>Tetumtra - Tradutór automátiku tétun ba portugés</title>
+  <meta name="description" content="Tradutór automátiku portugés ba tétun no tétun para ba portugés" />
+  <meta name="description" content="Automatic translator from tetum to portuguese and portuguese to tetum" />
+</head>
+
+<body>
+  <div class="content">
+    <button style="float: left" onclick="window.location.href = 'tradutor-portugues-tetum.html';">Em Português</button>
+    <button style="float: left" onclick="window.location.href = 'translator-tetum-portuguese.html';">In English</button>
+    <br>
+    <h1 style="font-size: 100%;text-align: center">Tradutór automátiku Tetun nian ba Portugés</h1>
+    <br>
+    <form method="POST">
+      <div style="float: right; ">
+        <select id="lang" name="lang" style="font-size: 110%;">
+          <option value="ttpt" {% if pair == "ttpt"%} selected {% endif %}>Tetun-Portugés</option>
+          <option value="pttt">Portugés-Tetun</option>
+        </select>
+      </div>
+      {{ form.hidden_tag() }}
+      <div style="float: left;font-size: 110%;">{{ form.submit_tt(class="button") }}</div>
+      <div>
+        <div onclick="form.pagedown.data= ''">
+          {{ form.pagedown(only_input=True, rows=6, style='width:100%; font-size:100%') }}</div>
+      </div>
+      <div style="font-size:50%;float: left;">V1.1.1</div>
+      <div style="float: right; right;font-size: 50%;">
+        Tradutór iha dezenvolvimentu. Haruka sujestaun sira hodi hadi'a: <a
+          href='mailto:tetumtra@gmail.com'>tetumtra@gmail.com</a>
+      </div>
+    </form>
+    {% if text %}
+    <div style="font-size:70%;">Tradusaun:</div>
+    <hr>
+    <div style="font-size:120%; white-space: pre-wrap;">{{ text }}</div>
+    <hr>
+    {% endif %}
+  </div>
+</body>
+
+</html>
