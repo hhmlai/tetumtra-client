@@ -24,7 +24,8 @@ class TranslateForm(FlaskForm):
 
 translation = ''
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/index.html')
+@app.route('/')
 def index():
     form = TranslateForm()
     translation = ''
