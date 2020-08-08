@@ -1,6 +1,16 @@
-<html>
+<html lang="pt">
 
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-172687928-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'UA-172687928-1');
+  </script>
+
   {{ pagedown.include_pagedown() }}
   <style>
     .flask-pagedown-preview {
@@ -45,14 +55,6 @@
       /* Footer height */
     }
   </style>
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-VJXBETXMLJ"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-    gtag('config', 'G-VJXBETXMLJ');
-  </script>
   <meta name="google-site-verification" content="ZMqNX7Nt4G5nTZOTYHqjhWojk4AYIkjTMJMQrxAnSJM" />
   <title>Tetumtra - Tradutor automático de português para tétum</title>
   <meta name="description" content="Tradutor automático de português para tétum e de tétum para português" />
@@ -68,13 +70,13 @@
     <br>
     <form method="POST">
       <div style="float: right; ">
-        <select id="lang" name="lang" style="font-size: 110%;">
+        <select id="lang" name="lang" style="font-size: 90%;">
           <option value="pttt">Português-Tétum</option>
           <option value="ttpt" {% if pair == "ttpt"%} selected {% endif %}>Tétum-Português</option>
         </select>
       </div>
       {{ form.hidden_tag() }}
-      <div style="float: left;font-size: 110%;">{{ form.submit_pt(class="button") }}</div>
+      <div style="float: left;font-size: 90%;">{{ form.submit_pt(class="button") }}</div>
       <div>
         <div>{{ form.pagedown(only_input=True, rows=6, style='width:100%; font-size:100%') }}</div>
       </div>
@@ -89,6 +91,7 @@
     <hr>
     <div style="font-size:120%; white-space: pre-wrap;">{{ text }}</div>
     <hr>
+    <div style="font-size:50%;float: left;">Projeto académico experimental. A tradução poderá estar incorreta e conter erros ortográficos.</div>
     {% endif %}
   </div>
 </body>

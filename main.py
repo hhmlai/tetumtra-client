@@ -37,7 +37,7 @@ def pttt():
         text = form.pagedown.data   
         translation = translate(text,pair)
     else:
-        form.pagedown.data = ("Escreva aqui o texto que quer traduzir.\n\nTradutor gratuito, agora e para sempre!")
+        form.pagedown.data = ("Escreva aqui o texto que quer traduzir.")
     return render_template('tradutor-portugues-tetum.html', form=form, pair=pair, text=translation)
 
 @app.route('/tradutor-tetun-portuges.html', methods=['GET', 'POST'])
@@ -50,7 +50,7 @@ def ttpt():
         text = form.pagedown.data
         translation = translate(text,pair)
     else:
-        form.pagedown.data = ("Hakerek iha ne'e testu ne'ebé hakarak tradús.\n\nTradutór gratuitu, agora no ba nafatin!")
+        form.pagedown.data = ("Hakerek iha ne'e testu ne'ebé hakarak tradús.")
     return render_template('tradutor-tetun-portuges.html', form=form, pair=pair, text=translation)
 
 @app.route('/translator-tetum-portuguese.html', methods=['GET', 'POST'])
@@ -63,10 +63,8 @@ def ttpt_en():
         text = form.pagedown.data
         translation = translate(text,pair)
     else:
-        form.pagedown.data = ("Hakerek iha ne'e testu ne'ebé hakarak tradús.\n\nTradutór gratuitu, agora no ba nafatin!")
+        form.pagedown.data = ("Hakerek iha ne'e testu ne'ebé hakarak tradús.")
     return render_template('translator-tetum-portuguese.html', form=form, pair=pair, text=translation)
-
-
 
 @app.route('/sitemap.xml')
 def sitemap():
@@ -89,7 +87,8 @@ def translate(text,pair):
             pair = request.form['lang']
             for text in text_list:
                 if len(text) > 1:
-                    res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model, 'pair': pair, 'text': text})
+                    res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model, 'pair': pair, 'text': text, 'ip': request.remote_addr})
+                    print(request.remote_addr)
                     if res.ok:
                         translation = translation + res.json()['translation']
                     else:
