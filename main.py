@@ -85,10 +85,17 @@ def translate(text,pair):
                     tok_list.append(p)
             text_list = [sent for par in tok_list for sent in par ]
             pair = request.form['lang']
+            client = {
+                'user_agent': request.environ.get('HTTP_USER_AGENT'),
+                'lang': request.environ.get('HTTP_ACCEPT_LANGUAGE'),
+                'country': request.environ.get('HTTP_X_APPENGINE_COUNTRY'),
+                'city': request.environ.get('HTTP_X_APPENGINE_CITY'),
+                'region': request.environ.get('HTTP_X_APPENGINE_REGION'),
+                'latlong': request.environ.get('HTTP_X_APPENGINE_CITYLATLONG')
+            }
             for text in text_list:
                 if len(text) > 1:
-                    res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model, 'pair': pair, 'text': text, 'ip': request.remote_addr})
-                    print(request.remote_addr)
+                    res = requests.post('https://server-dot-tetumtra.appspot.com/trans/', json={'model': model, 'pair': pair, 'text': text, 'client': client})
                     if res.ok:
                         translation = translation + res.json()['translation']
                     else:
