@@ -1,8 +1,0 @@
-gunicorn
-flask
-flask_pagedown
-flask_wtf
-wtforms
-requests
-nltk
-more_itertools

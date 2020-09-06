@@ -1,2 +1,9 @@
-runtime: python37
-entrypoint: gunicorn --timeout 60 -b :$PORT main:app
+runtime: nodejs12
+
+handlers:
+  - url: /
+    static_files: www/index.html
+    upload: www/index.html
+
+  - url: /
+    static_dir: www
