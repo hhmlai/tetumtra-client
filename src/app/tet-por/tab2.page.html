@@ -17,9 +17,6 @@
     </ion-card-content>
   </ion-card>
   <ion-card *ngIf = "this.translation" >
-    <ion-card-header>
-      Tradução em Português:
-    </ion-card-header>
     <ion-card-content>
       <ion-textarea rows="8" [(ngModel)]="translation" readonly [disabled]="this.transService.active">
       </ion-textarea>
