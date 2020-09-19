@@ -1,7 +1,5 @@
 __pycache__
 .**
-node_modules
-www
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
@@ -34,3 +32,4 @@ npm-debug.log*
 /platforms
 /plugins
 /www
+/android

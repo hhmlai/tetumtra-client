@@ -1,24 +1,24 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Tradução Português - Tétum</ion-title>
+      <ion-title size="large">Português -> Tetum</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-card>
     <ion-card-header>
-      <ion-button [disabled]="value.length < 5 || value.length > 10000 || this.transService.active"
+      <ion-button [disabled]="value.length > 10000 || this.transService.active"
         (click)="translate()">
-        {{ this.transService.active ? 'Traduzindo...' : 'Traduzir de Português para Tétum'}}</ion-button>
+        {{ this.transService.active ? 'Traduzindo / Traduzi...' : 'Português -> Tetum'}}</ion-button>
     </ion-card-header>
     <ion-card-content>
       <ion-textarea clearInput="true" rows="5" type="text" [(ngModel)]="value"
-        placeholder="Introduza o texto a traduzir...">
+        placeholder="Introduza o texto a traduzir... / hakerek iha ne'e testu hodi tradús... ">
       </ion-textarea>
     </ion-card-content>
   </ion-card>
   <ion-card *ngIf = "this.translation" >
     <ion-card-header>
-      Tradução em Tétum:
+      Tradução em Tétum / Tradusaun iha Tetum:
     </ion-card-header>
     <ion-card-content>
       <ion-textarea rows="8" [(ngModel)]="translation" readonly [disabled]="this.transService.active">

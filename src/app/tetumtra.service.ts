@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError, finalize } from 'rxjs/operators';
+import Tokenizer from 'sentence-tokenizer'
+var tokenizer = new Tokenizer();
 
 @Injectable({
   providedIn: 'any'
@@ -36,14 +38,40 @@ export class TetumtraService {
       'Something bad happened; please try again later.');
   };
 
-  Translate(pair, text): Observable<any> {
-    this.active = true
-    return this.http
-      .post(this.base_path, JSON.stringify({ 'model': 'sp_int16_en', 'pair': pair, 'client': '', 'text': text }), this.httpOptions)
-      .pipe(
-        retry(2),
-        catchError(this.handleError),
-        finalize(()=> this.active = false)
-      )
+  TranslateStart(pair, text): Observable<any> {
+    if (text.length > 0)
+      this.active = true
+      return this.http
+        .post(this.base_path, JSON.stringify({ 'model': 'sp_int16_en', 'pair': pair, 'client': '', 'text': text }), this.httpOptions)
+        .pipe(
+          retry(2),
+          catchError(this.handleError),
+          finalize(()=> this.active = false)
+        )
+  }
+
+  translate(pair, state) {
+    if (state.value.length > 0) {
+      var batch = []
+      state.value.split(/\r?\n/).forEach(s1 => {
+        tokenizer.setEntry(s1)
+        tokenizer.getSentences().forEach(s2 => {
+          batch.push(s2)
+        })
+        batch.push('\n')
+      })
+      var trans = new Array(batch.length).fill('translating...\n')
+      batch.forEach((s, i) => {
+        if (s.length > 1) {
+          this.TranslateStart(pair, s).subscribe(res => {
+            trans[i] = res.translation + ' '
+            state.translation = trans.join('')
+          });
+        } else {
+          trans[i] = s
+          state.translation = trans.join('')
+        }
+      })
+    }
   }
 }
