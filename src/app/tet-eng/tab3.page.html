@@ -1,0 +1,25 @@
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Translate Tétum - English</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-card>
+    <ion-card-header>
+      <ion-button [disabled]="value.length > 10000 || this.transService.active"
+        (click)="translate()">
+        {{ this.transService.active ? 'Traduzi/Translating...' : 'Tetum -> English'}}</ion-button>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-textarea id="tten" autoGrow type="text" [(ngModel)]="value" (ionFocus)="transService.selectText('tten')"
+        placeholder="hakerek iha ne'e testu hodi tradús... / Enter text to translate ...">
+    </ion-textarea>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf = "this.translation" >
+    <ion-card-content>
+      <ion-textarea  clearInput="true" autoGrow [(ngModel)]="translation" readonly [disabled]="this.transService.active" (ionFocus)="transService.selectText('tten')">
+      </ion-textarea>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

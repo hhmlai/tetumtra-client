@@ -16,15 +16,23 @@ const routes: Routes = [
         loadChildren: () => import('../tet-por/tab2.module').then(m => m.Tab2PageModule)
       },
       {
+        path: 'tetum-english',
+        loadChildren: () => import('../tet-eng/tab3.module').then(m => m.Tab3PageModule)
+      },
+      {
+        path: 'english-tetum',
+        loadChildren: () => import('../eng-tet/tab4.module').then(m => m.Tab4PageModule)
+      },
+      {
         path: '',
-        redirectTo: '/translate/tetum-portuguese',
+        redirectTo: '/translate/tetum-english',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/translate/tetum-portuguese',
+    redirectTo: '/translate/tetum-english',
     pathMatch: 'full'
   }
 ];

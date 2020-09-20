@@ -17,7 +17,12 @@ export class AppComponent {
   ) {
     this.initializeApp();
   }
-
+  SelectAll(id)
+  {
+    var Url = document.getElementById(id) as HTMLInputElement;
+    Url.focus();
+    Url.select();
+  }
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();

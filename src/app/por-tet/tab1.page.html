@@ -11,14 +11,14 @@
         {{ this.transService.active ? 'Traduzindo / Traduzi...' : 'Português -> Tetum'}}</ion-button>
     </ion-card-header>
     <ion-card-content>
-      <ion-textarea clearInput="true" rows="5" type="text" [(ngModel)]="value"
+      <ion-textarea id="pttt" autoGrow type="text" [(ngModel)]="value" (ionFocus)="transService.selectText('pttt')"
         placeholder="Introduza o texto a traduzir... / hakerek iha ne'e testu hodi tradús... ">
       </ion-textarea>
     </ion-card-content>
   </ion-card>
   <ion-card *ngIf = "this.translation" >
     <ion-card-content>
-      <ion-textarea rows="8" [(ngModel)]="translation" readonly [disabled]="this.transService.active">
+      <ion-textarea autoGrow [(ngModel)]="translation" readonly [disabled]="this.transService.active">
       </ion-textarea>
     </ion-card-content>
   </ion-card>

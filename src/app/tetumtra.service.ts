@@ -50,6 +50,12 @@ export class TetumtraService {
         )
   }
 
+  selectText(id) {
+    const input = document.getElementById(id).getElementsByTagName('textarea')[0];
+    input.focus();
+    input.select();
+  }  
+
   translate(pair, state) {
     if (state.value.length > 0) {
       var batch = []
@@ -62,6 +68,7 @@ export class TetumtraService {
       })
       var trans = new Array(batch.length).fill('translating...\n')
       batch.forEach((s, i) => {
+        console.log(s)
         if (s.length > 1) {
           this.TranslateStart(pair, s).subscribe(res => {
             trans[i] = res.translation + ' '
