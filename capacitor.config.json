@@ -1,6 +1,6 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "tetumtra",
+  "appId": "tetumtra.appspot.com",
+  "appName": "Tetumtra",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
