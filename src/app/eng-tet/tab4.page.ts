@@ -15,6 +15,6 @@ export class Tab4Page {
   queue = 0
   constructor(public transService: TetumtraService) { }
   translate() {
-    this.transService.translate('entt', this)
+    this.transService.translate('entt', this, 10)
   }
 }

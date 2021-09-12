@@ -6,7 +6,7 @@
   </ion-header>
   <ion-card>
     <ion-card-header>
-      <ion-button [disabled]="value.length > 10000 || this.transService.active"
+      <ion-button [disabled]="value.length > 1000 || this.transService.active"
         (click)="translate()">
         {{ this.transService.active ? 'Translating/Traduzi...' : 'English -> Tetum'}}</ion-button>
     </ion-card-header>

@@ -5,11 +5,15 @@ import { retry, catchError, finalize } from 'rxjs/operators';
 import Tokenizer from 'sentence-tokenizer'
 var tokenizer = new Tokenizer();
 
+
 @Injectable({
   providedIn: 'any'
 })
 export class TetumtraService {
-  base_path: string = "https://server-dot-tetumtra.appspot.com/trans/";
+//  base_path: string = "https://server-dot-tetumtra.appspot.com/trans/";
+//  base_path: string = "https://server-dot-tetumtra-pttt.appspot.com/trans/";
+  base_path1: string = "https://tetumtra-";
+  base_path2: string = ".appspot.com/trans/";
 
   constructor(private http: HttpClient) { }
 
@@ -39,10 +43,16 @@ export class TetumtraService {
   };
 
   TranslateStart(pair, text): Observable<any> {
+    var path
     if (text.length > 0)
       this.active = true
+      if ((pair == 'entt') || (pair == 'tten')) {
+        path = this.base_path1 + 'tten' + this.base_path2
+      } else {
+        path = this.base_path1 + 'ttpt' + this.base_path2
+      }
       return this.http
-        .post(this.base_path, JSON.stringify({ 'model': 'sp_int16_en', 'pair': pair, 'client': '', 'text': text }), this.httpOptions)
+        .post(path, JSON.stringify({ 'model': 'sp_int16_en', 'pair': pair, 'client': '', 'text': text }), this.httpOptions)
         .pipe(
           retry(2),
           catchError(this.handleError),
@@ -56,7 +66,7 @@ export class TetumtraService {
     input.select();
   }  
 
-  translate(pair, state) {
+  translate(pair, state, max_size=3) {
     if (state.value.length > 0) {
       var batch = []
       state.value.split(/\r?\n/).forEach(s1 => {
@@ -66,6 +76,7 @@ export class TetumtraService {
         })
         batch.push('\n')
       })
+      if (batch.length > max_size) { batch.length = max_size }
       var trans = new Array(batch.length).fill('translating...\n')
       batch.forEach((s, i) => {
         console.log(s)

@@ -25,14 +25,14 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/translate/tetum-english',
+        redirectTo: '/translate/tetum-portuguese',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/translate/tetum-english',
+    redirectTo: '/translate/tetum-portuguese',
     pathMatch: 'full'
   }
 ];

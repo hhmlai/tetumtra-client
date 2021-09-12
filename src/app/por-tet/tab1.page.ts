@@ -14,6 +14,6 @@ export class Tab1Page {
   translation = ''
   constructor(public transService: TetumtraService) { }
   translate() {
-    this.transService.translate('pttt', this)
+    this.transService.translate('pttt', this, 20)
   }
 }
